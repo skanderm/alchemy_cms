@@ -3,13 +3,13 @@ lib = File.expand_path('../lib', __FILE__)
 $LOAD_PATH.unshift(lib) unless $LOAD_PATH.include?(lib)
 require 'alchemy/version'
 
-rails_version = ENV.fetch("RAILS_VERSION"){ "5.0.0"}
+rails_version = ENV.fetch("RAILS_VERSION"){ "5.1.0"}
 
 rails = case rails_version
           when "master"
             {github: "rails/rails"}
           when "default"
-            "~> 5.0.0"
+            "~> 5.1.0"
           else
             "~> #{rails_version}"
         end
