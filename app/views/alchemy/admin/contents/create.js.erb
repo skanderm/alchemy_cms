@@ -1,0 +1,51 @@
+var editor_html = '<%= j(render "alchemy/essences/#{@content.essence_partial_name}_editor", {
+  content: @content,
+  options: options_from_params.symbolize_keys,
+  html_options: @html_options.symbolize_keys
+}) %>';
+
+<% if params[:was_missing] %>
+
+$("[data-element-<%= @element.id %>-missing-content=\"<%= @content.name %>\"]").replaceWith(editor_html);
+
+<% else %>
+
+$("<%= @content_dom_id %>").before(editor_html);
+Alchemy.Buttons.enable();
+Alchemy.growl('<%= j Alchemy.t("Successfully added content") % {content: @content.name_for_label} %>')
+
+<% end %>
+
+<% if @content.essence_type == "Alchemy::EssencePicture" %>
+
+<% if @content.ingredient %>
+$('#picture_to_assign_<%= @content.ingredient.id %> a').attr('href', '#').off('click');
+<% end %>
+
+<% if @gallery_pictures %>
+
+<% if @gallery_pictures.size > 1 %>
+$('#element_<%= @element.id %>_contents .essence_picture_editor').addClass('draggable_picture');
+<% end %>
+
+<% if !max_image_count.blank? && @gallery_pictures.size >= max_image_count %>
+$("#add_picture_<%= @element.id %>").remove();
+<% end %>
+
+Alchemy.SortableContents('#element_<%= @element.id %>_contents', '<%= form_authenticity_token %>');
+
+<% end %>
+
+<% elsif @content.essence_type == "Alchemy::EssenceDate" %>
+
+Alchemy.Datepicker('#element_<%= @element.id %>');
+
+<% elsif @content.essence_type == "Alchemy::EssenceRichtext" %>
+
+Alchemy.Tinymce.initEditor(<%= @content.id %>);
+
+<% end %>
+
+Alchemy.reloadPreview();
+Alchemy.closeCurrentDialog();
+Alchemy.SelectBox("#element_<%= @element.id %>");

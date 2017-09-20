@@ -1,0 +1,72 @@
+# == Alchemy core modules configuration
+
+- name: dashboard
+  engine_name: alchemy
+  position: 1
+  navigation:
+    name: 'modules.dashboard'
+    controller: 'alchemy/admin/dashboard'
+    action: index
+    image: 'alchemy/icon.svg'
+
+- name: pages
+  engine_name: alchemy
+  position: 2
+  navigation:
+    name: 'modules.pages'
+    controller: 'alchemy/admin/pages'
+    action: index
+    icon: pages
+    sub_navigation:
+      - name: 'modules.pages'
+        controller: 'alchemy/admin/pages'
+        action: index
+      - name: 'modules.layoutpages'
+        controller: 'alchemy/admin/layoutpages'
+        action: index
+    nested:
+      - controller: 'alchemy/admin/pages'
+        action: edit
+
+- name: languages
+  engine_name: alchemy
+  position: 3
+  navigation:
+    name: 'modules.languages'
+    controller: 'alchemy/admin/languages'
+    action: index
+    icon: languages
+
+- name: sites
+  engine_name: alchemy
+  position: 4
+  navigation:
+    name: 'modules.sites'
+    controller: 'alchemy/admin/sites'
+    action: index
+    icon: sites
+
+- name: tags
+  engine_name: alchemy
+  position: 5
+  navigation:
+    name: 'modules.tags'
+    controller: 'alchemy/admin/tags'
+    action: index
+    icon: tags
+
+- name: archive
+  engine_name: alchemy
+  position: 6
+  navigation:
+    controller: 'alchemy/admin/pictures'
+    action: index
+    name: 'modules.library'
+    icon: library
+    sub_navigation:
+      - name: 'modules.pictures'
+        controller: 'alchemy/admin/pictures'
+        action: index
+      - name: 'modules.attachments'
+        controller: 'alchemy/admin/attachments'
+        action: index

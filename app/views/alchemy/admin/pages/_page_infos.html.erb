@@ -1,0 +1,12 @@
+<span class="page_status with-hint">
+  <%= render_icon page.public? ? :public : :not_public %>
+  <span class="hint-bubble"><%= page.status_title(:public) %></span>
+</span>
+<span class="page_status with-hint">
+  <%= render_icon page.visible? ? :visible : :not_visible %>
+  <span class="hint-bubble"><%= page.status_title(:visible) %></span>
+</span>
+<span class="page_status with-hint">
+  <%= render_icon page.restricted? ? :restricted : :not_restricted %>
+  <span class="hint-bubble"><%= page.status_title(:restricted) %></span>
+</span>

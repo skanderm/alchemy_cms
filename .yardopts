@@ -1,0 +1,5 @@
+--title "Alchemy CMS"
+app/**/*.rb
+config/**/*.yml
+lib/**/*.rb
+README.md

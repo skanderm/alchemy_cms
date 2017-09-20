@@ -1,0 +1,30 @@
+<%= alchemy_form_for @essence_picture,
+    url: alchemy.admin_essence_picture_path(@essence_picture, options: options_from_params) do |f| %>
+  <%= hidden_field_tag 'content_id', @content.id %>
+  <%= f.input :caption, as: options_from_params[:caption_as_textarea] ? 'text' : 'string' %>
+  <%= f.input :title %>
+  <%= f.input :alt_tag %>
+  <%- if options_from_params[:sizes].present? -%>
+    <%= f.input :render_size,
+      collection: [
+        [Alchemy.t('Layout default'), options_from_params[:size]]
+      ] + options_from_params[:sizes].to_a,
+      include_blank: false,
+      input_html: {class: 'alchemy_selectbox'} %>
+  <%- end -%>
+  <%- if options_from_params[:css_classes].present? -%>
+    <%= f.input :css_class,
+      collection: options_from_params[:css_classes],
+      include_blank: Alchemy.t('None'),
+      input_html: {class: 'alchemy_selectbox'} %>
+  <%- else -%>
+    <%= f.input :css_class,
+      label: Alchemy.t(:position_in_text),
+      collection: [
+        [Alchemy.t(:above), "no_float"],
+        [Alchemy.t(:left), "left"],
+        [Alchemy.t(:right), "right"]
+      ], include_blank: Alchemy.t("Layout default"), input_html: {class: 'alchemy_selectbox'} %>
+  <%- end -%>
+  <%= f.submit Alchemy.t(:save) %>
+<% end %>

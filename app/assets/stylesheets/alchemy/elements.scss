@@ -1,0 +1,832 @@
+#alchemy_elements_window {
+  box-sizing: border-box;
+  position: absolute;
+  right: 0;
+  top: 73px;
+  width: 400px;
+  height: auto;
+  border-left: $default-border;
+  transition: 200ms ease-in-out;
+}
+
+#element_area {
+  box-sizing: border-box;
+  overflow-x: hidden;
+  overflow-y: auto;
+
+  .sortable_cell {
+    min-height: 100px;
+    padding: 2*$default-padding $default-padding 2px;
+  }
+
+  textarea {
+    width: 100%;
+
+    &.has_tinymce {
+      // We need to do this, because globally all texareas have height: auto !important
+      height: 140px !important;
+    }
+  }
+}
+
+.element-title {
+  overflow: hidden;
+  white-space: nowrap;
+  max-width: 85%;
+  margin-left: $default-margin;
+  text-overflow: ellipsis;
+
+  .has-hint & {
+    max-width: 80%;
+  }
+
+  .preview_text_quote {
+    font-size: 10px;
+    line-height: 15px;
+  }
+}
+
+.preview_text_element_name {
+  font-size: 10px;
+  text-shadow: #efefef 1px 1px 1px;
+  font-weight: bold;
+  line-height: 15px;
+}
+
+.element-handle,
+.element-title {
+  display: inline-block;
+  vertical-align: middle;
+}
+
+.element-handle {
+  position: relative;
+  width: 18px;
+  height: 18px;
+
+  .element.icon {
+    position: absolute;
+    top: 0;
+    left: 0;
+  }
+
+  .icon {
+    position: absolute;
+    right: 0;
+    bottom: 0;
+
+    &.element_dirty {
+      background-position: -160px -166px;
+    }
+  }
+}
+
+.draggable .element-handle {
+  cursor: move;
+}
+
+.ajax-folder {
+  position: absolute;
+  width: 16px;
+  height: 16px;
+  right: 8px;
+  top: 8px;
+
+  .error_icon {
+    float: left;
+    width: 14px;
+    height: 15px;
+    text-align: center;
+    background-color: white;
+    border: 1px solid #935b5b;
+    color: #935b5b;
+  }
+}
+
+.add_picture {
+  float: left;
+  margin: 1px;
+  width: 119px;
+  border: 1px solid #c0c0c0;
+  @extend %rounded-border;
+  height: 123px;
+
+  a {
+    display: block;
+    height: 100%;
+    width: 100%;
+    position: relative;
+    text-decoration: none;
+    overflow: hidden;
+    text-align: center;
+    font-weight: bold;
+    line-height: 104px;
+    @extend %rounded-border;
+    font-size: 40px;
+    background-color: $light-gray;
+
+    &:hover {
+      background-color: $medium-gray;
+    }
+
+    .icon {
+      font-size: 30px;
+      width: 30px;
+      height: 30px;
+      position: absolute;
+      top: 48px;
+      left: 44px;
+    }
+  }
+}
+
+.element-editor {
+  border: 1px solid $default-border-color;
+  @extend %rounded-border;
+  background-color: $light-gray;
+  margin-bottom: 2*$default-margin;
+
+  &.not-draggable {
+    opacity: 0.5;
+  }
+
+  &.dirty {
+    border-color: #d0c83d;
+
+    > .element-header {
+      background-color: #fff8df;
+    }
+  }
+
+  &.selected {
+    border-color: $blue;
+    box-shadow: 0 0 4px $blue;
+  }
+
+  &.folded {
+
+    .nested-elements {
+      display: none;
+    }
+  }
+
+  &.dragged {
+    border-style: dotted;
+    height: 36px;
+
+    * { display: none }
+  }
+
+  &.with-contents, &.without-contents.not-nestable {
+
+    .element-content {
+      padding: 2*$default-padding 2*$default-padding 0;
+      border-top: 1px solid $medium-gray;
+    }
+  }
+
+  form {
+    margin: 0;
+  }
+
+  .validation_notice {
+    float: left;
+    margin-top: 8px;
+    margin-bottom: 4px;
+    font-size: 10px;
+    text-align: left;
+  }
+
+  .message {
+    margin: 2*$default-margin;
+  }
+
+  .foot_note {
+    margin-bottom: 1em;
+  }
+
+  .content_editor_error {
+    border: 1px solid #f5b04e;
+    padding: 4px 8px;
+    line-height: 21px;
+    background-color: #f5dea9;
+    margin-top: 4px;
+    @extend %rounded-border;
+
+    .icon.warning {
+      position: relative;
+      top: 2px;
+      margin-right: 8px;
+      vertical-align: top;
+    }
+  }
+
+  .autocomplete_tag_list {
+    padding: $default-padding 0;
+
+    label {
+      font-size: 10px;
+    }
+
+    .select2-container {
+      width: 100%;
+
+      .select2-choices {
+        width: 100%;
+        margin-bottom: 0;
+        margin-top: 8px;
+      }
+    }
+  }
+
+  hr {
+    height: 0;
+    width: 100%;
+    margin: 0 0 4*$default-margin 0;
+    border: 0 none;
+    border-top: 1px solid $medium-gray;
+    opacity: 1;
+  }
+}
+
+.element-header {
+  position: relative;
+  height: 20px;
+  padding: 2*$default-padding;
+  background-color: $medium-gray;
+  @extend .disable-user-select;
+  cursor: pointer;
+
+  > .hint-with-icon {
+    position: absolute;
+    right: 32px;
+    top: 8px;
+
+    .hint-bubble {
+      left: auto;
+      right: -24px;
+      transform: none;
+
+      &:before {
+        left: auto;
+        right: 24px;
+        transform: none;
+      }
+    }
+  }
+}
+
+.element-toolbar {
+  padding: 6px 0;
+  height: 6*$default-padding;
+  background-color: #f0f0f0;
+
+  .element_tools {
+    float: left;
+    margin-top: -3px;
+    margin-left: -4px;
+  }
+}
+
+.element-footer {
+  border-top: 1px solid $medium-gray;
+  margin: 8px 0 0 0;
+  padding: 2*$default-padding;
+  text-align: right;
+
+  .button {
+    margin: 0;
+  }
+}
+
+.picture_gallery_images {
+  overflow: hidden;
+  margin: $default-margin 0;
+  border: 1px solid $default-border-color;
+  @extend %rounded-border;
+  background-color: $medium-gray;
+  padding: 1px;
+
+  .essence_picture_editor {
+    margin: 1px;
+    float: left;
+    height: 126px;
+
+    .picture_thumbnail { margin: 0 }
+  }
+}
+
+.picture_thumbnail .picture_image {
+  height: 93px;
+  overflow: hidden;
+
+  img.img_paddingtop {
+    @extend .disable-user-select;
+  }
+}
+
+#cells {
+  min-height: 100px;
+}
+
+.linkable_essence_tools {
+  position: absolute;
+  bottom: 6px;
+  right: 0;
+
+  .icon_button {
+    @include button-defaults;
+    width: 29px;
+    height: 28px;
+    margin: 0 0 0 4px;
+    padding: 2px;
+    position: absolute;
+    bottom: 3px;
+    right: 28px;
+    border-radius: 0;
+
+    &.link-essence,
+    &.unlink-essence {
+      border: 1px solid #c0c0c0;
+    }
+
+    &.linked.link-essence {
+      @include linked-button($border-radius: 0 0 0 0);
+    }
+
+    &.linked.unlink-essence {
+      @include linked-button($border-radius: 0 $default-border-radius $default-border-radius 0);
+    }
+
+    &.unlink-essence {
+      right: 0;
+      @extend .right-rounded-border;
+    }
+  }
+}
+
+.expand_element,
+.fold_element {
+  background-image: image-url('alchemy/icons.png');
+  background-repeat: no-repeat;
+  height: 16px;
+  width: 16px;
+  text-decoration: none;
+  display: block;
+  margin: 1px;
+}
+
+.expand_element {
+  background-position: -160px -72px;
+}
+
+.fold_element {
+  background-position: -192px -72px;
+}
+
+.droppable_element_placeholder {
+  height: 36px;
+  border: 1px dotted $button-border-color;
+  background-color: $medium-gray;
+  margin-bottom: 2*$default-margin;
+  border-radius: $default-border-radius;
+}
+
+.edit_images_bottom {
+  height: 19px;
+  position: absolute;
+  z-index: 0;
+  left: 5px;
+  bottom: 2px;
+  width: 111px;
+
+  > a, > span.icon {
+    float: left;
+    margin-left: 2px;
+    margin-right: 2px;
+    width: 18px;
+    height: 18px;
+  }
+
+  a {
+
+    &.linked {
+      position: relative;
+      @extend %rounded-border;
+      background-color: $linked-color;
+      border: 1px solid $button-border-color;
+      bottom: 1px;
+      margin-right: 2px;
+      width: 18px;
+      height: 18px;
+      margin-left: 0;
+
+      .icon { margin-left: 1px }
+    }
+  }
+
+  a.disabled, > span.icon {
+    opacity: 0.3;
+    cursor: default;
+  }
+}
+
+.essence_picture_editor {
+  position: relative;
+
+  .picture_tool_delete {
+    position: absolute;
+    right: $default-margin;
+    top: $default-margin;
+    padding: 2px 2px 0;
+    z-index: 2;
+  }
+
+  .picture_thumbnail:hover .picture_tool_delete {
+    display: block;
+  }
+
+  .picture_thumbnail {
+    width: 111px;
+    height: 115px;
+    margin: $default-margin 0;
+
+    .thumbnail_background {
+      width: 111px;
+      height: 93px;
+    }
+  }
+
+  &.validation_failed .picture_thumbnail {
+    border-color: $error_border_color
+  }
+
+  .thumbnail_background.missing:before {
+    font-family: 'Alchemy Icons';
+    @extend .icon-pictures:before;
+    font-size: 48px;
+    color: $medium-gray;
+    vertical-align: top;
+  }
+
+  .essence_picture_css_class {
+    position: absolute;
+    z-index: 1;
+    bottom: 24px;
+    width: 99px;
+    background-color: white;
+    background-color: rgba(255, 254, 255, 0.7);
+    padding: 4px 8px;
+    font-size: 10px;
+    text-align: right;
+    height: 12px;
+    overflow: hidden;
+  }
+}
+
+.draggable_picture {
+  float: left;
+
+  .picture_handle {
+    cursor: move;
+  }
+}
+
+.picture_thumbnail .picture_handle {
+  position: absolute;
+  z-index: 1;
+  width: 110px;
+  height: 93px;
+  top: 4px;
+  left: 4px;
+  background-color: transparent;
+  @extend .disable-user-select;
+}
+
+div.file {
+  padding: 0;
+  margin-top: 8px;
+  margin-bottom: 4px;
+  border: 1px solid #c0c0c0;
+  background-color: #f3f3f3;
+  @extend %rounded-border;
+  height: 24px;
+
+  .validation_failed & {
+    color: $error_text_color;
+    border-color: $error_border_color;
+  }
+}
+
+div.file_icon {
+  text-align: center;
+  float: left;
+  height: 24px;
+  width: 24px;
+
+  span.icon {
+    margin: $default-margin;
+  }
+
+  a.assign_file {
+    display: block;
+    height: 16px;
+    background: image-url('alchemy/icons.png') no-repeat -480px -40px;
+    width: 16px;
+    margin: $default-margin;
+  }
+}
+
+.content_editor.essence_file {
+
+  .file_name {
+    white-space: nowrap;
+    overflow: hidden;
+    float: left;
+    max-width: 80%;
+    line-height: 25px;
+    font-size: 10px;
+    text-overflow: ellipsis;
+  }
+}
+
+.essence_file_tools {
+  height: 24px;
+  float: right;
+  background-color: white;
+  width: 48px;
+
+  a {
+    text-decoration: none;
+    width: 16px;
+    height: 16px;
+    margin: $default-margin;
+    float: left;
+
+    &.assign_file {
+      background: image-url('alchemy/icons.png') -512px -40px;
+    }
+
+    &.edit_file {
+      background: image-url('alchemy/icons.png') -160px -167px;
+    }
+  }
+}
+
+div.tinymce_container {
+  position: relative;
+  margin: $default-margin 0;
+
+  .spinner {
+    top: 70px;
+  }
+}
+
+input.long,
+input.text_long {
+  width: 363px;
+}
+
+select.long {
+  width: 376px;
+  margin: 0;
+  padding: 0;
+}
+
+.content_editor {
+  padding: $default-padding 0;
+  position: relative;
+
+  .thin_border, input[type="text"] {
+    width: 100%;
+  }
+
+  &.missing {
+
+    .message {
+      margin: 0;
+      @include clearfix;
+    }
+
+    p {
+      float: left;
+      width: 70%;
+    }
+
+    .icon.warning {
+      vertical-align: text-bottom;
+      margin-left: 2px;
+      margin-right: 6px;
+    }
+
+    .button {
+      float: right;
+      margin: 0;
+      text-decoration: none;
+    }
+  }
+
+  &.display_inline {
+    display: inline-block;
+    vertical-align: middle;
+    margin-right: 4px;
+    vertical-align: top;
+
+    .thin_border, input[type="text"] {
+      width: 170px;
+    }
+  }
+
+  &.validation_failed {
+
+    label { color: $error_text_color }
+    input { @extend %field-with-error }
+    .tinymce_container {
+      outline: 1px solid $error_border_color;
+    }
+  }
+
+  label {
+    display: block;
+    margin-bottom: 2px;
+    font-size: 10px;
+    text-shadow: #fff5e1 1px 1px 0;
+    line-height: 15px;
+    text-indent: 1px;
+
+    span.warning.icon {
+      position: relative;
+      top: 2px;
+    }
+
+    &.inline {
+      display: inline-block;
+      vertical-align: middle;
+      min-width: 90px;
+      margin-right: 4px;
+    }
+
+    a.icon_button.small {
+      width: 10px;
+      height: 10px;
+      display: none;
+
+      .icon {
+        top: 1px;
+        right: 1px;
+      }
+
+      &:hover {
+
+        .icon {
+          right: 2px;
+        }
+      }
+    }
+  }
+
+  &.essence_select {
+
+    label { margin-bottom: 4px }
+
+    .select2-container {
+      width: 100%;
+    }
+
+    &.display_inline .select2-container {
+      width: 170px;
+    }
+  }
+
+  &:hover label a.icon_button.small {
+    display: inline-block;
+    vertical-align: middle;
+  }
+
+  select.essence_editor_select {
+    @extend %rounded-border;
+    background: white;
+    border: 1px solid $button-border-color;
+    font-size: 11px;
+    height: 21px;
+    line-height: 21px;
+    padding: 2px;
+
+    optgroup {
+      color: gray;
+      font-style: normal;
+      font-weight: bold;
+      text-indent: 8px;
+
+      option {
+        text-indent: 24px;
+      }
+    }
+
+    option {
+      padding-top: 2px;
+      padding-bottom: 2px;
+      color: black;
+    }
+  }
+
+  &.essence_picture_editor {
+    float: none;
+    height: auto;
+    display: inline-block;
+    vertical-align: middle;
+  }
+}
+
+.content_rtf_text_area {
+  display: none;
+}
+
+div.pictures_for_element {
+  overflow: auto;
+  margin-top: 4px;
+}
+
+textarea.has_tinymce {
+  visibility: hidden;
+}
+
+.essence_html_editor textarea {
+  font-family: $mono-font-face;
+  resize: vertical;
+  font-size: 11px;
+}
+
+.text_short_float_left {
+  width: 170px;
+  float: left;
+  margin-right: 10px;
+  border-width: 1px;
+}
+
+.element_errors {
+  display: none;
+  margin-top: 8px;
+  margin-bottom: 8px;
+  background-color: $error_background_color;
+  padding: 2*$default-padding;
+  list-style-type: none;
+  @extend %rounded-border;
+  color: $error_text_color;
+  border: 1px solid $error_border_color;
+
+  p {
+    margin: 0;
+    line-height: 24px;
+  }
+}
+
+.content_editor .hint-with-icon,
+.content_editor .with-hint,
+.element-handle .warning {
+  margin-left: 0;
+
+  > .hint-bubble {
+    left: -7px;
+    transform: none;
+
+    &:before {
+      left: 16px;
+    }
+  }
+}
+
+.content_editor .hint-with-icon {
+  top: -1px;
+}
+
+.nestable-elements {
+  box-shadow: inset 0 4px 8px -2px darken($medium-gray, 15%);
+  background-color: $medium-gray;
+
+  .expanded.element-editor > & {
+    padding: 16px 8px 8px;
+  }
+}
+
+.nested-elements {
+
+  .element-header {
+    background-color: transparent;
+  }
+
+  .element-toolbar {
+    background-color: transparent;
+    border-top: 1px solid $medium-gray;
+  }
+}
+
+.add-nestable-element-button {
+  margin-top: 0;
+}
+
+.essence_date--label {
+  position: absolute;
+  right: 5px;
+  top: 31px;
+}

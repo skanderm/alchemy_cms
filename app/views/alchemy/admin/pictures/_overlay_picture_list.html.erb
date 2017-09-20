@@ -1,0 +1,11 @@
+<% if @pictures.empty? %>
+  <div class="info">
+    <%= render_icon('info') %>
+    <%= Alchemy.t(:no_images_in_archive) %>
+  </div>
+<% else %>
+  <%= render partial: 'picture_to_assign',
+    collection: @pictures,
+    locals: {options: options_from_params, size: @size} %>
+  <%= paginate @pictures, theme: 'alchemy', remote: true %>
+<% end %>

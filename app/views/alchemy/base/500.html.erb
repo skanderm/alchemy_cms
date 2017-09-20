@@ -1,0 +1,40 @@
+<%= toolbar(
+  buttons: [
+    {
+      icon: 'back',
+      url: request.referer || alchemy.admin_dashboard_path,
+      label: Alchemy.t(:back),
+      title: Alchemy.t(:back),
+      hotkey: 'alt+z',
+      dialog: false,
+      skip_permission_check: true
+    }
+  ], search: false
+) %>
+
+<% content_for(:alchemy_body_class) { 'error' } %>
+
+<%= render_message(:error) do %>
+  <h1><%= Alchemy.t('An error happened') %></h1>
+  <h2>
+    <%= @error.class %>
+    <%= @notice %>
+  </h2>
+  <p class="hidden">
+  <% @trace.each do |line| %>
+    <%= line %><br>
+  <% end %>
+  </p>
+  <a href="#" class="error_details--toggle">
+    <%= Alchemy.t('Show error details') %>
+  </a>
+<% end %>
+
+<script>
+  $(function(){
+    $('.error_details--toggle').click(function(){
+      $('.error.message p').toggleClass('hidden');
+      return false;
+    });
+  });
+</script>

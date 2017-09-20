@@ -1,0 +1,5 @@
+- name: right_column
+  elements: [search, text]
+
+- name: <%= 'erb_' + 'cell' %>
+  elements: [text]

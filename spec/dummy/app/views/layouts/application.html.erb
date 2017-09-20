@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <%= render "alchemy/pages/meta_data" %>
+  <%= stylesheet_link_tag 'application' %>
+  <%= javascript_include_tag "application" %>
+  <%= csrf_meta_tags %>
+</head>
+<body>
+  <%= yield %>
+  <div id="navigation">
+    <%= render_navigation(:all_sub_menues => true) %>
+  </div>
+  <%= render "alchemy/edit_mode" %>
+</body>
+</html>

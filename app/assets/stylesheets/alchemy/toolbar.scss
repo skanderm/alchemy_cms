@@ -1,0 +1,115 @@
+#toolbar {
+  z-index: 10;
+  @extend %gradiated-toolbar;
+  margin-right: 0px;
+  border-bottom: $default-border;
+  position: relative;
+
+  .button_with_label {
+
+    form {
+      margin: 0;
+      display: inline-block;
+      vertical-align: middle;
+      line-height: 5px;
+    }
+  }
+
+  div p {
+    float: right;
+    margin: 3px $default-margin 0 0;
+    padding: 0;
+  }
+
+  .button {
+    width: 25px;
+    height: 21px;
+    text-decoration: none;
+    float: right;
+    border-width: 0;
+    border-style: none;
+    font-size: 0;
+    padding: 0;
+    background-repeat: no-repeat;
+    background-position: 0 0;
+
+    &:active {
+      text-decoration: none;
+      background-position: 0 -21px;
+    }
+  }
+}
+
+.toolbar_buttons {
+  margin-right: 8px;
+  white-space: nowrap;
+
+  &.right {
+    position: absolute;
+    right: 0;
+    top: 8px;
+    margin-left: 8px;
+
+    label {
+      left: auto;
+      right: 50%;
+      margin-left: 0;
+      margin-right: -12px;
+
+      &:before {
+        left: auto;
+        right: 8px;
+      }
+    }
+  }
+}
+
+.toolbar_spacer {
+  display: inline-block;
+  vertical-align: middle;
+  width: 0px;
+  height: 29px;
+  border-right-style: solid;
+  border-right-width: 1px;
+  border-right-color: $default-border-color;
+  margin-right: $default-margin;
+  margin-left: $default-margin;
+}
+
+#overlay_toolbar {
+  @extend %gradiated-toolbar;
+  border-bottom: $default-border;
+
+  .button {
+    width: 25px;
+    height: 21px;
+    text-decoration: none;
+    float: right;
+    border-width: 0;
+    border-style: none;
+    font-size: 0;
+    padding: 0;
+    background-repeat: no-repeat;
+    background-position: 0 0;
+
+    &:active {
+      text-decoration: none;
+      background-position: 0 -21px;
+    }
+  }
+}
+
+.button_group {
+  position: relative;
+  display: inline-block;
+  vertical-align: top;
+  margin: 0 2*$default-margin;
+
+  &:hover label {
+    display: block;
+  }
+
+  .button_with_label {
+    margin: 0;
+  }
+}

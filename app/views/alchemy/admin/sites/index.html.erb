@@ -1,0 +1,23 @@
+<% label_title = Alchemy.t("Create #{resource_name}", default: Alchemy.t('Create')) %>
+
+<% toolbar(
+  buttons: [
+    {
+      icon: 'create',
+      label: label_title,
+      url: new_resource_path,
+      title: label_title,
+      hotkey: 'alt+n',
+      dialog_options: {
+        title: label_title,
+        size: resource_window_size
+      },
+      if_permitted_to: [:create, Alchemy::Site]
+    }
+  ]
+) %>
+
+<div id="archive_all" class="resources-table-wrapper">
+  <%= resources_header %>
+  <%= render 'table' %>
+</div>

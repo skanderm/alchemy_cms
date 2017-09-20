@@ -1,0 +1,83 @@
+<tr class="<%= cycle('even', 'odd') %>">
+  <td class="icon">
+    <%= render_icon attachment.icon_css_class %>
+  </td>
+  <td class="name">
+  <% if can?(:show, attachment) %>
+    <%= link_to_dialog(
+      attachment.name,
+      alchemy.admin_attachment_path(attachment),
+      {
+        title: attachment.name,
+        size: attachment_preview_size(attachment)
+      },
+      {
+        title: Alchemy.t('Attachment Preview')
+      }
+    ) %>
+  <% else %>
+    <%= attachment.name %>
+  <% end %>
+  </td>
+  <td class="file_name"><%= attachment.file_name %></td>
+  <td class="file_type"><%= mime_to_human(attachment.file_mime_type) %></td>
+  <td class="file_size"><%= number_to_human_size(attachment.file_size) %></td>
+  <td class="date"><%= l(attachment.created_at, format: :default) %></td>
+  <td class="tools long">
+  <% if can?(:show, attachment) %>
+    <%= link_to_dialog(
+      render_icon(:info),
+      alchemy.admin_attachment_path(attachment),
+      {
+        title: attachment.name,
+        size: attachment_preview_size(attachment)
+      },
+      {
+        title: Alchemy.t('Attachment Preview')
+      }
+    ) %>
+  <% end %>
+  <% if can?(:download, attachment) %>
+    <%= link_to(
+      "",
+      alchemy.download_admin_attachment_path(attachment),
+      title: Alchemy.t("download_file", filename: attachment.file_name),
+      class: "icon file_download",
+      target: "_blank"
+    ) %>
+  <% end %>
+  <% if can?(:edit, attachment) %>
+    <%= render 'alchemy/admin/attachments/replace_button',
+      redirect_url: alchemy.admin_attachments_path,
+      object: attachment,
+      file_attribute: 'file' %>
+  <% end %>
+  <% if can?(:destroy, attachment) %>
+    <%= link_to_confirm_dialog(
+      "",
+      Alchemy.t(:confirm_to_delete_file),
+      alchemy.admin_attachment_path(
+        id: attachment,
+        q: params[:q],
+        page: params[:page],
+        per_page: params[:per_page]
+      ),
+      {
+        class: 'icon file_delete',
+        title: Alchemy.t(:delete_file)
+      }
+    ) %>
+  <% end %>
+  <% if can?(:edit, attachment) %>
+    <%= link_to_dialog("",
+      alchemy.edit_admin_attachment_path(attachment, q: params[:q], page: params[:page]),
+      {
+        title: Alchemy.t(:rename_file),
+        size: '500x250'
+      },
+      class: 'icon file_edit',
+      title: Alchemy.t(:rename_file)
+    ) %>
+  <% end %>
+  </td>
+</tr>

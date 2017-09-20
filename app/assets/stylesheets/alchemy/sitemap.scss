@@ -1,0 +1,339 @@
+#sort_panel {
+  background: $light-gray;
+  padding: 47px 0 8px 0;
+  position: fixed;
+  top: 29px;
+  left: 0;
+  z-index: 1;
+  width: 100%;
+  border-bottom: $default-border;
+
+  div.info {
+    margin: 16px 12px 8px 163px;
+  }
+
+  .buttons {
+    margin: 0 12px 0 163px;
+    text-align: right;
+  }
+}
+
+#sitemap-wrapper {
+  position: relative;
+  min-height: 100%;
+}
+
+.sitemap_pagename_link {
+  background-color: #fff;
+  color: black;
+  display: block;
+  padding: 0 3*$default-padding;
+  text-decoration: none;
+  transition: background-color, 400ms;
+
+  &.inactive {
+    color: #656565;
+  }
+
+  :hover {
+    text-decoration: underline;
+
+    &:after {
+      content: '';
+      width: 16px;
+      height: 16px;
+      float: left;
+      margin-right: $default-margin;
+      background: image-url('alchemy/icons.png') -160px -168px;
+      margin-top: $default-margin;
+    }
+  }
+}
+
+.redirect_url {
+  float: right;
+  text-align: right;
+  background-color: #fff0c4;
+  line-height: $sitemap-line-height;
+  font-size: 10px;
+  padding: 0 2*$default-padding;
+  max-width: 45%;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+#page_selector_container .sitemap_pagename_link:hover {
+  text-decoration: none;
+}
+
+#page_selector_container .sitemap_pagename_link:hover:after {
+  display: none;
+}
+
+.sitemap_line_spacer {
+  float: left;
+  width: 20px;
+  height: 28px;
+}
+
+.sitemap_page {
+  height: $sitemap-line-height;
+  margin: 3*$default-margin 0;
+  position: relative;
+
+  &.highlight .sitemap_pagename_link {
+    background-color: #FFFBA5;
+  }
+
+  &.no-match .sitemap_pagename_link {
+    color: $medium-gray;
+  }
+
+  &:hover .sitemap_pagename_link {
+    background-color: $light_yellow;
+  }
+}
+
+.sitemap_left_images {
+  @extend .left-rounded-border;
+  position: relative;
+  width: 16px;
+  height: $sitemap-line-height;
+  line-height: $sitemap-line-height - 2px;
+  float: left;
+  padding: 0 2*$default-padding;
+  background-color: rgba(#fff, .75);
+}
+
+.sitemap_right_tools {
+  height: $sitemap-line-height;
+  padding: 0 2*$default-padding;
+  float: right;
+
+  .sitemap_tool {
+    float: left;
+    width: $sitemap-line-height;
+    height: $sitemap-line-height;
+    line-height: $sitemap-line-height;
+    text-align: center;
+    margin: 0;
+
+    &.disabled .icon {
+      opacity: 0.25;
+      filter: grayscale(100%);
+    }
+
+    a {
+      display: block;
+    }
+  }
+
+  .icon.blank {
+    margin-left: 2px;
+    float: left;
+    margin-top: 3px;
+    margin-right: 3px;
+  }
+}
+
+#page_selector_container .sitemap_right_tools {
+  width: 24px;
+}
+
+ul#sitemap {
+  .page_folder {
+    @extend .icon;
+    position: absolute;
+    left: -23px;
+    top: 8px;
+
+    &.collapsed { @extend .icon.expand.small }
+    &.folded { @extend .icon.collapse.small }
+  }
+
+  ul {
+    margin: 0;
+    padding: 0;
+  }
+
+  li {
+    padding-left: 0;
+
+    .selected_page a {
+      background-color: $linked-color;
+      color: $dark-gray;
+    }
+
+    li {
+      padding-left: $sitemap-line-height;
+      padding-right: 0;
+    }
+  }
+}
+
+ul#sitemap li .sitemap_toolrow,
+ul.list li .sitemap_toolrow {
+  margin: 0;
+  overflow: auto;
+  padding: $default-padding 0;
+}
+
+ul#sitemap .sitemap_sitename,
+ul.list .sitemap_sitename {
+  height: $sitemap-line-height;
+  line-height: $sitemap-line-height;
+  overflow: hidden;
+}
+
+.page_infos {
+  @extend .right-rounded-border;
+  background-color: rgba(#fff, .75);
+  border-left: 1px solid $light-gray;
+  float: right;
+  height: $sitemap-line-height;
+  line-height: $sitemap-line-height;
+  padding: 0 $default-padding;
+
+  .page_status {
+    padding: 0 $default-padding;
+  }
+}
+
+#header .page_status_and_name .page_status {
+  margin-left: 2px;
+  line-height: 1;
+  vertical-align: text-bottom;
+}
+
+.page_status {
+  display: inline-block;
+
+  .icon {
+    vertical-align: text-bottom;
+
+    &.restricted {
+      background-position: -256px -39px;
+    }
+
+    &.not_restricted {
+      background-position: -288px -39px;
+      opacity: 0.3;
+    }
+
+    &.visible {
+      background-position: -128px -39px;
+    }
+
+    &.not_visible {
+      background-position: -160px -39px;
+      opacity: 0.3;
+    }
+
+    &.public {
+      background-position: -192px -39px;
+    }
+
+    &.not_public {
+      background-position: -224px -39px;
+      opacity: 0.3;
+    }
+  }
+}
+
+#sitemap.list {
+
+  &.sorting {
+    padding-top: 100px;
+
+    .page.icon { cursor: move }
+  }
+
+  .locked .page.icon {
+    background-position: -32px -40px;
+  }
+
+  .page.icon.not-allowed {
+    &:after {
+      content: '';
+      position: absolute;
+      bottom: -2px;
+      right: -1px;
+      width: 8px;
+      height: 8px;
+      background: image-url('alchemy/icons.png') -5px -77px;
+    }
+  }
+
+  .page_status .icon {
+    vertical-align: middle;
+  }
+}
+
+a.folder_link {
+  text-decoration: none;
+  outline: none;
+}
+
+#create_language_tree_form {
+  width: 80%;
+  max-width: 500px;
+  margin: 2em auto;
+  padding: 4*$default-padding;
+  border: $default-border;
+  background: $medium-gray;
+  @extend %rounded-border;
+}
+
+#sitemap_heading {
+  padding: 0;
+
+  .page_infos {
+    margin-right: 210px;
+    text-align: left;
+    float: right;
+    line-height: 28px;
+    background: transparent;
+  }
+
+  .page_name {
+    line-height: 28px;
+    margin-left: 43px;
+  }
+}
+
+#page_filter_result {
+  display: none;
+  margin-left: 2*$default-margin;
+}
+
+.alchemy-dialog ul.list#sitemap {
+  margin: 0;
+  padding: 0 8px 8px 0;
+
+  .page.icon { cursor: default }
+
+  li li.selectboxit-option {
+    padding-left: 8px;
+    padding-right: 8px;
+  }
+
+  .selectboxit-options {
+    right: 0;
+  }
+
+  .close_elements_from_page_selector {
+    position: absolute;
+    right: $default-padding;
+    top: 12px;
+    font-size: 16px;
+    width: 16px;
+    height: 16px;
+    cursor: pointer;
+    @extend .icon-cross;
+  }
+}
+
+.elements_from_page_selector {
+  width: 100%;
+}

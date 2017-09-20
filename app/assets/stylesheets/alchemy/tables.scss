@@ -1,0 +1,214 @@
+table {
+  border-style: none;
+  border-spacing: 0 $default-padding;
+  padding: 0;
+  font-size: inherit;
+  width: 100%;
+}
+
+.list td, .list th {
+  padding: $default-padding 2*$default-padding;
+  vertical-align: top;
+  line-height: 18px;
+  border-right: 1px solid $medium-gray;
+
+  &.wrap-text {
+    white-space: normal !important;
+  }
+}
+
+.list td:first-child, .list th:first-child {
+  border-left: 1px solid $medium-gray
+}
+
+.list th {
+  position: relative;
+
+  &.icon {
+    border-bottom: 1px solid $medium-gray;
+  }
+}
+
+.floatThead-container {
+  background: $light-gray;
+  overflow: visible !important; // the javascript author thought that, but ....
+
+  &:after {
+    position: absolute;
+    bottom: -4px;
+    left: 0;
+    width: 100%;
+    height: 4px;
+    background: linear-gradient($light-gray, rgba($light-gray, .0));
+    content: '';
+  }
+}
+
+th {
+  white-space: nowrap;
+  text-align: left;
+  vertical-align: top;
+  background: $light-gray;
+  border-bottom: 1px solid $medium-gray;
+  font-weight: normal;
+  text-transform: uppercase;
+
+  i {
+    font-style: normal;
+    position: absolute;
+    right: 2px;
+    top: 4px;
+    text-shadow: 1px 1px 1px #fff;
+  }
+
+  a {
+
+    &.sortable {
+      display: block;
+      margin: -4px -8px;
+      padding: 4px 18px 4px 8px;
+      text-shadow: 1px 1px 1px #fff;
+    }
+
+    &.sorted {
+      position: relative;
+      background: $medium-gray;
+    }
+  }
+}
+
+tr.odd td {
+  background-color: #eaf3f9;
+}
+
+tr.even td {
+  background-color: white;
+}
+
+.list tr .tools {
+  width: 40px;
+  background: $light-gray;
+  border-top: 0 none;
+  border-right: 0 none;
+  white-space: nowrap;
+  @extend .disable-user-select;
+
+  &.long {
+    width: 60px;
+  }
+}
+
+td.heading {
+  padding: $default-padding 0;
+  font-weight: bold;
+  text-decoration: underline;
+}
+
+.list td.icon, .list th.icon {
+  background-color: $light-gray;
+  background-image: none;
+  border-left: 0 none;
+  padding: 0;
+  border-right: 1px solid $medium-gray;
+  text-align: center;
+  display: table-cell; // reset the .icon display: inline-block
+}
+
+.list .tools .icon, .list td.icon .icon {
+  display: inline-block;
+  vertical-align: middle;
+  width: 16px;
+  height: 16px;
+  @extend .disable-user-select;
+  background-repeat: no-repeat;
+  margin: 0 $default-margin;
+  text-indent: -100px;
+}
+
+.list td.icon .icon {
+  margin: $default-margin 2*$default-margin 0;
+}
+
+.list tr:hover td {
+  background-color: $light_yellow;
+}
+
+td, th {
+
+  &.center, &.boolean {
+    text-align: center;
+
+    .icon.false {
+      @extend .false;
+    }
+
+    .icon.true {
+      @extend .icon;
+      @extend .true;
+    }
+  }
+
+  &.right {
+    text-align: right;
+  }
+}
+
+td {
+
+  &.file_name {
+    word-break: break-all;
+  }
+
+  &.file_type {
+    width: 130px;
+  }
+
+  &.file_size {
+    width: 80px;
+  }
+
+  &.date {
+    width: 150px;
+  }
+
+  &.login {
+    width: 100px;
+  }
+
+  &.email {
+    width: 270px;
+  }
+
+  &.role {
+    width: 10%;
+  }
+
+  &.rights {
+    width: 60px;
+  }
+}
+
+th.count, td.count {
+  width: 120px;
+  text-align: right;
+  padding-right: 16px;
+}
+
+table.window_form {
+  width: 100%;
+}
+
+.list .login_status {
+  width: 16px;
+}
+
+td#user_roles {
+  padding: 9px 0;
+
+  label {
+    display: inline-block;
+    vertical-align: middle;
+    white-space: nowrap;
+    min-width: 40%;
+  }
+}

@@ -1,0 +1,56 @@
+<div class="resource_info">
+  <% if @page.has_hint? %>
+  <%= render_message do %>
+    <%= @page.hint %>
+  <% end %>
+  <% end %>
+  <div class="value">
+    <label>
+      <% if @page.definition.blank? %>
+        <%= page_layout_missing_warning %>
+      <% end %>
+      <%= Alchemy::Page.human_attribute_name(:page_layout) %>
+    </label>
+    <p><%= @page.layout_display_name %></p>
+  </div>
+  <div class="value">
+  <% if @page.redirects_to_external? %>
+    <label><%= Alchemy::Page.human_attribute_name(:urlname) %></label>
+    <p><%= @page.urlname %></p>
+  <% else %>
+    <label><%= Alchemy::LegacyPageUrl.human_attribute_name(:urlname) %></label>
+    <p><%= "/#{@page.urlname}" %></p>
+  <% end %>
+  </div>
+  <div class="value">
+    <label><%= Alchemy.t(:page_status) %></label>
+    <p>
+      <span class="page_status">
+        <%= render_icon @page.public? ? :public : :not_public %>
+        <%= @page.status_title(:public) %>
+      </span>
+      <span class="page_status">
+        <%= render_icon @page.visible? ? :visible : :not_visible %>
+        <%= @page.status_title(:visible) %>
+      </span>
+      <span class="page_status">
+        <%= render_icon @page.restricted? ? :restricted : :not_restricted %>
+        <%= @page.status_title(:restricted) %>
+      </span>
+    </p>
+  </div>
+  <div class="value">
+    <label><%= Alchemy.t(:page_was_created) %></label>
+    <p><%= Alchemy.t(:from_at) % {by: @page.creator_name, at: l(@page.created_at, format: :page_status)} %></p>
+  </div>
+  <div class="value">
+    <label><%= Alchemy.t(:page_was_updated) %></label>
+    <p><%= Alchemy.t(:from_at) % {by: @page.updater_name, at: l(@page.updated_at, format: :page_status)} %></p>
+  </div>
+  <% if @page.locked? %>
+  <div class="value">
+    <label><%= Alchemy.t(:currently_edited_by) %></label>
+    <p><%= @page.locker_name %></p>
+  </div>
+  <% end %>
+</div>

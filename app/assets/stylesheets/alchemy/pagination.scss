@@ -1,0 +1,65 @@
+.pagination {
+  box-sizing: border-box;
+  background: $light_gray;
+  color: $text-color;
+  position: fixed;
+  bottom: 0;
+  right: 0;
+  width: 100%;
+  left: 0px;
+  height: 50px;
+  padding: 2*$default-padding;
+  padding-left: $main-menu-width + 10px;
+  text-align: left;
+  border-top: $default-border;
+  z-index: 10;
+
+  a, span, em {
+    font-size: $default-font-size;
+    height: 25px;
+    line-height: 25px;
+    padding: $default-padding;
+  }
+
+  a:hover {
+    color: #000;
+    text-shadow: none;
+    text-decoration: none;
+  }
+
+  span a { padding: 0 }
+
+  .button { padding: 0px 8px }
+
+  .current {
+    color: $text-color;
+    border: $default-border;
+    text-shadow: 0px 1px 1px #fff;
+    cursor: default;
+    @extend %rounded-border;
+    padding: 5px 8px;
+  }
+
+  .previous_page {
+    margin-right: 2*$default-padding;
+  }
+
+  .next_page {
+    margin-left: 2*$default-padding;
+  }
+
+  .disabled, span {
+    color: #c0c0c0;
+  }
+
+  .gap {
+    border: none;
+    background: transparent;
+    cursor: default;
+  }
+}
+
+#assign_image_list .pagination, #assign_file_list .pagination {
+  position: absolute;
+  padding-left: 8px;
+}

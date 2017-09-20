@@ -1,0 +1,15 @@
+<div class="<%= params[:tagged_with].present? ? 'tag-list filtered' : 'tag-list' %>">
+  <h2><%= Alchemy.t("Filter by tag") %></h2>
+  <%= js_filter_field '.tag-list li' %>
+  <ul>
+    <%= render_tag_list(resource_model.name) %>
+  </ul>
+  <% if params[:tagged_with].present? %>
+    <%= link_to(
+      render_icon('delete-small') + Alchemy.t('Remove tag filter'),
+      url_for(search_filter_params.except(:tagged_with)),
+      remote: request.xhr?,
+      class: 'button small with_icon please_wait'
+    ) %>
+  <% end %>
+</div>

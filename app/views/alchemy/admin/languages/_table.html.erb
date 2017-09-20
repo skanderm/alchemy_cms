@@ -1,0 +1,43 @@
+<%- if @languages.any? -%>
+<table class="list" id="languages_list">
+  <thead>
+    <tr>
+      <th>
+        <%= sort_link @query, :name, hide_indicator: true %>
+      </th>
+      <th>
+        <%= sort_link @query, :language_code, hide_indicator: true %>
+      </th>
+      <th>
+        <%= sort_link @query, :country_code, hide_indicator: true %>
+      </th>
+      <th>
+        <%= Alchemy::Language.human_attribute_name(:code) %>
+      </th>
+      <th>
+        <%= Alchemy::Language.human_attribute_name(:locale) %>
+      </th>
+      <th>
+        <%= Alchemy::Language.human_attribute_name(:frontpage_name) %>
+      </th>
+      <th>
+        <%= Alchemy::Language.human_attribute_name(:page_layout) %>
+      </th>
+      <th class="center">
+        <%= Alchemy::Language.human_attribute_name(:public) %>
+      </th>
+      <th class="center">
+        <%= Alchemy::Language.human_attribute_name(:default) %>
+      </th>
+      <th class="tools"></th>
+    </tr>
+  </thead>
+  <tbody>
+    <%= render_resources %>
+  </tbody>
+</table>
+<%- elsif params[:q].present? -%>
+<p><%= Alchemy.t('Nothing found') %></p>
+<%- end -%>
+
+<%= paginate @languages, theme: 'alchemy' %>

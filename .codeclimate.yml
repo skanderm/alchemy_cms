@@ -1,0 +1,34 @@
+---
+engines:
+  brakeman:
+    enabled: true
+  csslint:
+    enabled: false
+  coffeelint:
+    enabled: false
+  duplication:
+    enabled: true
+    exclude_paths:
+    - "lib/alchemy/permissions.rb"
+    - "lib/tasks/alchemy/tidy.rake"
+    - "lib/tasks/alchemy/upgrade.rake"
+    config:
+      languages:
+      - ruby
+  eslint:
+    enabled: false
+  fixme:
+    enabled: false
+  rubocop:
+    enabled: false
+ratings:
+  paths:
+  - Gemfile.lock
+  - "**.erb"
+  - "**.rb"
+exclude_paths:
+- "config/"
+- "db/"
+- "spec/"
+- "lib/alchemy/upgrader/"
+- "lib/rails/"
